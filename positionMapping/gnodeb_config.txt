@@ -1,0 +1,6 @@
+*.gNodeB[0].x2App[0].client.connectAddress = "gNodeB[1]%x2ppp0"
+*.gNodeB[0].x2App[1].client.connectAddress = "gNodeB[2]%x2ppp0"
+*.gNodeB[1].x2App[0].client.connectAddress = "gNodeB[2]%x2ppp0"
+*.gNodeB[1].x2App[1].client.connectAddress = "gNodeB[0]%x2ppp0"
+*.gNodeB[2].x2App[0].client.connectAddress = "gNodeB[0]%x2ppp0"
+*.gNodeB[2].x2App[1].client.connectAddress = "gNodeB[1]%x2ppp0"
