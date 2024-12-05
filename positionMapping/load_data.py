@@ -36,6 +36,16 @@ def load_data(filename):
     # Select Latitude  between 49.549099 and 49.652578
     data = data[(data['Longitude'] >= 6.030969) & (data['Longitude'] <= 6.216758) & (data['Latitude'] >= 49.549099) & (data['Latitude'] <= 49.652578)]
 
+    print(f"Number of repeated CIDs: {data.duplicated(subset='CID').sum()}")
+    
+    # Drop duplicates (same CID)
+    data = data.drop_duplicates(subset='CID', keep='first')
+
+    
+    # Check if there are repeated CIDs
+    print(f"Number of repeated CIDs: {data.duplicated(subset='CID').sum()}")
+    print(f"Number of rows: {len(data)}")
+
     print(data.describe())
 
     # Get a list with dicts {lat: x, lon: y}
@@ -44,3 +54,6 @@ def load_data(filename):
     print(data[:5])
 
     return data
+
+if __name__ == '__main__':
+    load_data('270.csv')

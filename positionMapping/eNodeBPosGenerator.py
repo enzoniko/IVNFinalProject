@@ -1,7 +1,7 @@
 import sumolib
 
 # Replace with your actual .net.xml file
-net_file = '../artery/scenarios/monitorAV/LuSTNanoScenario/lust.net.xml'
+net_file = 'lust.net.xml'
 
 # Create a SUMO network object
 net = sumolib.net.readNet(net_file)
@@ -28,7 +28,7 @@ def sumo_to_omnetpp(x, y, net_bounds):
 
     return omnet_x, omnet_y
 
-def real_world_to_omnetpp(latlon_list, net, net_bounds):
+def real_world_to_omnetpp(latlon_list, net, net_bounds, node_type='eNodeB'):
     """Converts a list of real-world lat/lon coordinates to OMNeT++ coordinates.
 
     Args:
@@ -51,11 +51,11 @@ def real_world_to_omnetpp(latlon_list, net, net_bounds):
             num_enodebs -= 1
             continue
 
-        output_str += f"*.eNodeB[{j}].mobility.initialX = {omnet_x}m\n"
-        output_str += f"*.eNodeB[{j}].mobility.initialY = {omnet_y}m\n"
+        output_str += f"*.{node_type}[{j}].mobility.initialX = {omnet_x}m\n"
+        output_str += f"*.{node_type}[{j}].mobility.initialY = {omnet_y}m\n"
         j += 1
 
-    print(f"Number of eNodeBs within bounds: {num_enodebs}")
+    print(f"Number of {node_type}s within bounds: {num_enodebs}")
     return output_str
 
 def generate_bs_config(num_bs: int, bs_type: str, filename: str = "bs_config.txt") -> None:
