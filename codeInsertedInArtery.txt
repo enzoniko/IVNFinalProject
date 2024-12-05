@@ -1,0 +1,21 @@
+This is the code inserted into Artery CaService.CaService to extract the timestamp and CAM size for each vehicle and write it to a CSV file.:
+
+// -------------------------------------------------------------------------------
+
+	// Extract the node id from the vehicle name
+	std::string vehicleName = getParentModule()->getParentModule()->getFullName();
+	std::string nodeId = vehicleName.substr(vehicleName.find('[') + 1, vehicleName.find(']') - vehicleName.find('[') - 1);
+
+	// File name for the vehicle
+	std::string fileName = "results/vehiclesCAMs/vehicle_" + nodeId + ".csv";
+
+	// Open the file in append mode
+	std::ofstream outFile(fileName, std::ios::app);
+	if (outFile.is_open()) {
+		// Write the simulation timestamp and CAM size to the file in CSV format
+		outFile << T_now << "," << cam.size() << std::endl;
+		outFile.close();
+	} else {
+		std::cerr << "Error: Unable to open file for vehicle " << nodeId << std::endl;
+	}
+	// -------------------------------------------------------------------------------

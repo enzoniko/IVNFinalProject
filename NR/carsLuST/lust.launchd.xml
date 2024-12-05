@@ -11,5 +11,6 @@
 	<copy file="lust.add.xml" />	
 	<copy file="gui-settings.cfg.xml"/>
 	<copy file="due.actuated.sumocfg" type="config" />
+	<seed value="1000" />
 </launch>
 
