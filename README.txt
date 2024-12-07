@@ -1,0 +1,2 @@
+VeinsInetMobility .cc, .h, and .ned are the modified files with the implemented collection of vehicles positions.
+They need to replace the files with the same name at the veins_inet/src/veins_inet folder.
