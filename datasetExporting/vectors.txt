@@ -1,0 +1,128 @@
+Loaded data with 27125 rows.
+
+Data Columns:
+----------------------------------------
+Index(['run', 'type', 'module', 'name', 'attrname', 'attrvalue', 'vectime',
+       'vecvalue'],
+      dtype='object')
+----------------------------------------
+Filtered attribute data with 16455 rows.
+Filtered vector data with 10401 rows.
+
+Unique 'name' values (variable names): 
+----------------------------------------
+queueLength:vector
+queueBitLength:vector
+transmissionState:vector
+passedUpPk:vector(count)
+droppedPkWrongPort:vector(count)
+droppedPkBadChecksum:vector(count)
+servingCell:vector
+distance:vector
+incomingPacketLengths:vector
+queueingTime:vector
+outgoingPacketLengths:vector
+txPk:vector(packetBytes)
+rxPkOk:vector(packetBytes)
+passedUpPk:vector(packetBytes)
+avgServedBlocksUl:vector
+avgServedBlocksDl:vector
+measuredSinrUl:vector
+measuredSinrDl:vector
+receivedPacketFromLowerLayer:vector(packetBytes)
+posLongCar:vector
+posLatCar:vector
+posZCar:vector
+packetSent:vector(packetBytes)
+rcvdPkFromHl:vector(packetBytes)
+receivedPacketFromUpperLayer:vector(packetBytes)
+sentPacketToLowerLayer:vector(packetBytes)
+packetReceived:vector(packetBytes)
+alertDelay:vector
+alertRcvdMsg:vector
+averageCqiUl:vector
+rcvdSinrUl:vector
+harqErrorRate_1st_Ul:vector
+harqErrorRateUl:vector
+macDelayUl:vector
+harqErrorRate_2nd_Ul:vector
+harqTxAttemptsUl:vector
+sentPacketToUpperLayer:vector(packetBytes)
+rlcPacketLossUl:vector
+averageCqiD2D:vector
+harqErrorRate_3rd_Ul:vector
+macDelayDl:vector
+rlcPduThroughputD2D:vector
+rlcPduDelayD2D:vector
+rlcPacketLossD2D:vector
+rlcPacketLossTotal:vector
+rlcThroughputD2D:vector
+rlcDelayD2D:vector
+rlcPduPacketLossD2D:vector
+incomingDataRate:vector
+outgoingDataRate:vector
+----------------------------------------
+
+Vector Data with Missing Units:
+----------------------------------------
+
+Unique 'name' values (variable names) with missing units: 
+transmissionState:vector 0xF8000006
+passedUpPk:vector(count) 0xF8000006
+droppedPkWrongPort:vector(count) 0xF8000006
+droppedPkBadChecksum:vector(count) 0xF8000006
+servingCell:vector 0xF8000006
+txPk:vector(packetBytes) 0x03000000 bits /8
+rxPkOk:vector(packetBytes) 0x03000000 bits /8
+passedUpPk:vector(packetBytes) 0x03000000 bits /8
+receivedPacketFromLowerLayer:vector(packetBytes) 0x03000000 bits /8
+posLongCar:vector 0xC4B24924 *pi/180
+posLatCar:vector 0xC4B24924 *pi/180
+posZCar:vector 0xC4964924
+packetSent:vector(packetBytes) 0x03000000 bits /8
+rcvdPkFromHl:vector(packetBytes) 0x03000000 bits /8
+receivedPacketFromUpperLayer:vector(packetBytes) 0x03000000 bits /8
+sentPacketToLowerLayer:vector(packetBytes) 0x03000000 bits /8
+packetReceived:vector(packetBytes) 0x03000000 bits /8
+harqErrorRate_1st_Ul:vector 0xF8000001
+harqErrorRateUl:vector 0xF8000001
+harqErrorRate_2nd_Ul:vector 0xF8000001
+harqTxAttemptsUl:vector 0xF8000006
+sentPacketToUpperLayer:vector(packetBytes) 0x03000000 bits /8
+rlcPacketLossUl:vector 0xF8000001
+harqErrorRate_3rd_Ul:vector 0xF8000001
+rlcPacketLossD2D:vector 0xF8000001
+rlcPacketLossTotal:vector 0xF8000001
+rlcPduPacketLossD2D:vector 0xF8000001
+----------------------------------------
+
+Vector Data without Missing Units:
+----------------------------------------
+queueLength:vector: 0x03010000 pk
+queueBitLength:vector: 0x03000000 b
+distance:vector: 0x84964924
+incomingPacketLengths:vector: 0x03000000 b
+queueingTime:vector: 0x84925924
+outgoingPacketLengths:vector: 0x03000000 b
+avgServedBlocksUl:vector: 0x03020000 blocks
+avgServedBlocksDl:vector: 0x03020000 blocks
+measuredSinrUl:vector: 0xF8000000	
+measuredSinrDl:vector: 0xF8000000	
+alertDelay:vector: 0x84925924
+alertRcvdMsg:vector: 0x84925924
+averageCqiUl:vector: 0x03030000
+rcvdSinrUl:vector: 0xF8000000	
+macDelayUl:vector: 0x84925924
+averageCqiD2D:vector: 0x03030000
+macDelayDl:vector: 0x84925924
+rlcPduThroughputD2D:vector: 0x03040000 Bps *8
+rlcPduDelayD2D:vector: 0x84925924
+rlcThroughputD2D:vector: 0x03040000 Bps *8
+rlcDelayD2D:vector: 0x84925924
+incomingDataRate:vector: 0x03040000 bps
+outgoingDataRate:vector: 0x03040000 bps
+----------------------------------------
+
+Unique 'attrvalue' values (units): ['pk' 'b' 'meters' 's' 'blocks' 'dB' 'cqi' 'Bps' 'bps']
+
+packets, bits, meters, seconds, blocks, decibels, cqi, bits per second, counts, degrees, and rates are the units of measurement in the dataset

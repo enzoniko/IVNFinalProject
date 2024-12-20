@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 import sys
 
 def load_csv(file_path):
@@ -70,7 +71,40 @@ def clean_vector_data(vector_data):
     # Drop rows where the module has 'sctp' in it
     vector_data = vector_data[~vector_data['module'].str.contains('sctp')]
 
-    vector_data_filtered = vector_data[['module', 'name']] # vector_data[['module', 'name', 'vectime', 'vecvalue']]
+    # Check what unique values in the "name" column have all the rows with the 'vecvalue' (vecvalue column contain a vector of values) values constant
+    unique_names = vector_data["name"].unique()
+    for name in unique_names:
+
+        # Get all the rows with the same name
+        name_rows = vector_data[vector_data["name"] == name]
+
+        # Get the standard deviation of the vecvalue column
+        for index, row in name_rows.iterrows():
+            #vecvalue = row["vecvalue"]
+            vectime = row["vectime"]
+
+            # Transform the string into a list of floats
+            #vecvalue = np.array([float(x) for x in vecvalue.split(" ")])
+            vectime = np.array([float(x) for x in vectime.split(" ")])
+
+            #vecvalue_std = vecvalue.std()
+            vectime_std = vectime.std()
+
+            # If the standard deviation is zero, then all the values in the vecvalue column are the same
+            if vectime_std == 0:
+                print(f"Name: {name}, Mean: {vectime.mean()}, Std: {vectime_std}")
+
+                # Drop all the rows with the same name
+                vector_data = vector_data[vector_data["name"] != name]
+
+            """ if vecvalue_std == 0:
+                print(f"Name: {name}, Mean: {vecvalue.mean()}, Std: {vecvalue_std}")
+
+                # Drop all the rows with the same name
+                vector_data = vector_data[vector_data["name"] != name] """
+    
+
+    vector_data_filtered =  vector_data[['module', 'name', 'vectime', 'vecvalue']] # vector_data[['module', 'name']] #
     return vector_data_filtered
 
 def merge_data(scalar_data, attr_data):
@@ -94,25 +128,44 @@ def main():
     pd.set_option('display.max_rows', None)
 
     # Example file path (update with the correct path)
-    file_path = "D2DMulticast.csv"
+    file_path = "vectors.csv"
     
     # Load CSV
     data = load_csv(file_path)
     print(f"Loaded data with {len(data)} rows.")
+
+    print("\nData Columns:")
+    print("----------------------------------------")
+    print(data.columns)
+    print("----------------------------------------")
     
     # Filter data by type
-    scalar_data = filter_by_type(data, 'scalar')
+    #scalar_data = filter_by_type(data, 'scalar')
     attr_data = filter_by_type(data, 'attr')
     vector_data = filter_by_type(data, 'vector')
 
-    print(f"Filtered scalar data with {len(scalar_data)} rows.")
+    #print(f"Filtered scalar data with {len(scalar_data)} rows.")
     print(f"Filtered attribute data with {len(attr_data)} rows.")
     print(f"Filtered vector data with {len(vector_data)} rows.")
     
     # Clean data
-    cleaned_scalar_data = clean_scalar_data(scalar_data)
+    #cleaned_scalar_data = clean_scalar_data(scalar_data)
     cleaned_attr_data = clean_attr_data(attr_data)
     cleaned_vector_data = clean_vector_data(vector_data)
+
+    # Get a list of the unique "module" values
+    unique_modules = cleaned_vector_data["module"].unique()
+    print(f"\nUnique 'module' values: ")
+    print("----------------------------------------")
+   
+    print(list(unique_modules))
+    print("----------------------------------------")
+
+    # Save the vector data to a CSV file
+    #cleaned_vector_data.to_csv("cleaned_vector_data.csv", index=False)
+    
+    # Save only 3 rows of the vector data to a CSV file
+    cleaned_vector_data.head(3).to_csv("cleaned_vector_data_head.csv", index=False)
 
     # Get all the unique "name" values
     unique_names = cleaned_vector_data["name"].unique()
@@ -151,12 +204,34 @@ def main():
     # Show vector data with and without missing units
     print("\nVector Data with Missing Units:")
     print("----------------------------------------")
-    print(vector_data_with_units[vector_data_with_units['attrvalue'].isnull()])
+    #print(vector_data_with_units[vector_data_with_units['attrvalue'].isnull()])
+    vector_data_with_missing_units = vector_data_with_units[vector_data_with_units['attrvalue'].isnull()]
+
+    # Get all the unique "name" values
+    unique_names = vector_data_with_missing_units["name"].unique()
+    print(f"\nUnique 'name' values (variable names) with missing units: ")
+    
+    for name in unique_names:
+        print(name)
+
+
     print("----------------------------------------")
 
     print("\nVector Data without Missing Units:")
     print("----------------------------------------")
-    print(vector_data_with_units[~vector_data_with_units['attrvalue'].isnull()])
+    #print(vector_data_with_units[~vector_data_with_units['attrvalue'].isnull()])
+
+    vector_data_without_missing_units = vector_data_with_units[~vector_data_with_units['attrvalue'].isnull()]
+
+    # Get all the unique "name" values
+    unique_names = vector_data_without_missing_units["name"].unique()
+
+    # Get the attrvalue for each unique name
+    for name in unique_names:
+        attrvalue = vector_data_without_missing_units[vector_data_without_missing_units["name"] == name]["attrvalue"].iloc[0]
+        print(f"{name}: {attrvalue}")
+        
+
     print("----------------------------------------")
 
     # Get all the unique "attrvalue" values
@@ -168,7 +243,7 @@ def main():
 if __name__ == "__main__":
 
     orig_stdout = sys.stdout
-    f = open('vectors.txt', 'w')
+    f = open('vectorsReport.txt', 'w')
     sys.stdout = f
 
     main()
